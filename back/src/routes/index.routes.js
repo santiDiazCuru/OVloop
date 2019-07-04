@@ -3,6 +3,6 @@
 
 const router = require('express').Router();
 
-// router.use('/books', require('./books'));
+router.use('/v1/sms', require('./sms'));
 
 module.exports = router;
