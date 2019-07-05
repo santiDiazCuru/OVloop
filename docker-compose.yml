@@ -1,0 +1,34 @@
+version: "3.7"
+services:
+  server-local:
+    build:
+      context: .
+    image: ovloop-api
+    volumes:
+      - ./back:/app/src
+    container_name: ovloop-api_dev
+    ports:
+      - 8080:8080
+      - 2345:2345
+      - 9229:9229
+    depends_on:
+      - localstack
+    environment:
+      NODE_ENV: local
+      REGION_SNS: us-east-2
+      AWS_ACCESS_KEY_ID: anykey
+      AWS_SECRET_ACCESS_KEY: anysecret
+    tty: true
+    entrypoint: ["npm", "run", "local"]
+  localstack:
+    image: localstack/localstack
+    container_name: ovloop-api_localstack
+    environment:
+      SERVICES: sns
+      DEFAULT_REGION: us-east-2
+    ports:
+      - 8070:8080
+      - 4575:4575
+networks:
+  default:
+    name: ovloop-app
