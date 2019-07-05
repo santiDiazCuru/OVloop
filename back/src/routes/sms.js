@@ -13,7 +13,12 @@ router.post('/', function (req, res) {
     var requestId = req.body.requestId || xid.next()
 
     // SI NO RECIBO UNO DE LOS ATRIBUTOS
-    if (!phoneNumber || !msg || !origin) {
+    if (!phoneNumber || !msg || !origin ||
+        typeof phoneNumber !== 'string' ||
+        typeof msg !== 'string' ||
+        typeof origin !== 'string' ||
+        typeof requestId !== 'string'
+        ) {
         // res.status(400)
         // res.send({
         //     description: 'Missing attributes'
@@ -23,31 +28,33 @@ router.post('/', function (req, res) {
         res.statusMessage = "Missing attributes";
         res.status(400).end();
     }
+    else{
+        // SI RECIBO TODOS LOS ATRIBUTOS
+    
+        // LOCALSTACK
+        // LOCALSTACK
+        // SUPONIENDO QUE TODO ESTA BIEN
+        // UNA VEZ QUE VUELVA DE LOCALSTACK LO GUARDO EN LA DB
+        Message.create({
+            phoneNumber: phoneNumber,
+            requestId: requestId,
+            status: 'success',
+            channel: 'api',
+            last_provider: 'sns',
+            origin: 'algo',
+        })
+    
+        // LOCALSTACK
+        // LOCALSTACK
+    
+        // SUCCESS RESPONSE
+        res.json({
+            "st": "sent",
+            "provider": "sns",
+            "requestId": requestId,
+        })
+    }
 
-    // SI RECIBO TODOS LOS ATRIBUTOS
-
-    // LOCALSTACK
-    // LOCALSTACK
-    // SUPONIENDO QUE TODO ESTA BIEN
-    // UNA VEZ QUE VUELVA DE LOCALSTACK LO GUARDO EN LA DB
-    Message.create({
-        phoneNumber: phoneNumber,
-        requestId: requestId,
-        status: 'success',
-        channel: 'api',
-        last_provider: 'sns',
-        origin: 'algo',
-    })
-
-    // LOCALSTACK
-    // LOCALSTACK
-
-    // SUCCESS RESPONSE
-    res.json({
-        "st": "sent",
-        "provider": "sns",
-        "requestId": requestId,
-    })
 
 })
 

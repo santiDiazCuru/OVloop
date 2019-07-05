@@ -18,5 +18,9 @@
         "nodemon": "^1.19.1",
         "xid-js": "^1.0.1"
     },
-    "devDependencies": {}
+    "devDependencies": {
+        "chai": "^3.3.0",
+        "mocha": "^2.3.3",
+        "supertest": "^1.1.0"
+    }
 }
