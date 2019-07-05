@@ -37,6 +37,7 @@ router.post('/', function (req, res) {
         channel: 'api',
         last_provider: 'sns',
         origin: 'algo',
+        date: Date()
     })
 
     // LOCALSTACK

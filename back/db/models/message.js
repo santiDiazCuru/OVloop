@@ -7,6 +7,7 @@ var messagesModel = new mongoose.Schema({
     channel: { type: String, required: true,  enum: ['api', 'sqs'] },
     last_provider: { type: String, required: true },
     origin: { type: String, required: true },
+    date: {type: String, required: true}
 }, { versionKey: false });
 
 const Message = mongoose.model('messages', messagesModel)
