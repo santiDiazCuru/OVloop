@@ -13,6 +13,7 @@ services:
       - 9229:9229
     depends_on:
       - localstack
+      - mongo
     environment:
       NODE_ENV: local
       REGION_SNS: us-east-2
@@ -29,6 +30,11 @@ services:
     ports:
       - 8070:8080
       - 4575:4575
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
 networks:
   default:
     name: ovloop-app
