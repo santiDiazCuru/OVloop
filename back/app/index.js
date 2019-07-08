@@ -16,7 +16,7 @@ mongoose.set('useCreateIndex', true);
 // mongoose.set('useFindAndModify', false);
 
 // CONNECT TO DB
-mongoose.connect("mongodb://localhost/ovloop")
+mongoose.connect("mongodb://mongo:27017/ovloop")
     .then(() => console.log('mongoDB connected to ovloop'))
     .catch(err => console.log('db error: ', err));
 
@@ -28,7 +28,6 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
 
 // ROUTES
 app.use("/", router);

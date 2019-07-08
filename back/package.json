@@ -4,7 +4,8 @@
     "description": "",
     "main": "app/index.js",
     "scripts": {
-        "start": "nodemon app/index.js"
+        "start": "nodemon app/index.js",
+        "local": "nodemon --inspect=0.0.0.0:9229 app/index.js"
     },
     "keywords": [],
     "author": "",
@@ -23,6 +24,7 @@
     "devDependencies": {
         "chai": "^3.3.0",
         "mocha": "^2.3.3",
-        "supertest": "^1.1.0"
+        "supertest": "^1.1.0",
+        "nodemon": "^1.19.1"
     }
 }
