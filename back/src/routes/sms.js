@@ -95,7 +95,7 @@ router.get('/seed', function(req,res){
 
 router.get('/:requestId', function (req, res) {
     var requestId = req.params.requestId
-
+    // return res.send('OK')
     Message.findOne({
         requestId: requestId
     })
