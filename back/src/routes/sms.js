@@ -1,4 +1,5 @@
 'use strict';
+const faker = require('faker')
 const express = require('express');
 const router = express.Router();
 const xid = require('xid-js')
@@ -23,12 +24,6 @@ router.post('/', function (req, res) {
         typeof origin !== 'string' ||
         typeof requestId !== 'string'
     ) {
-        // res.status(400)
-        // res.send({
-        //     description: 'Missing attributes'
-        // })
-        // res.sendStatus(400)
-
         res.statusMessage = "Missing attributes";
         res.status(400).end();
     }
@@ -38,49 +33,64 @@ router.post('/', function (req, res) {
             Message: msg, /* required */
             PhoneNumber: phoneNumber
         };
-
         // Create promise and SNS service object
-        var publishTextPromise = new AWS.SNS({ endpoint: `http://localshost:4575` }).publish(params).promise();
+        var publishTextPromise = new AWS.SNS({ endpoint: `http://localstack:4575` }).publish(params).promise();
         // { endpoint: `${process.env.LOCALSTACK_HOSTNAME}:4575` }
         // Handle promise's fulfilled/rejected states
         publishTextPromise.then((data) => {
-            console.log("Message ${params.Message} send sent to the topic ${params.TopicArn}");
+            console.log(`Message response`, data);
             console.log("MessageID is " + data.MessageId);
+            Message.create({
+                phoneNumber: phoneNumber,
+                requestId: requestId,
+                status: 'success',
+                channel: 'api',
+                last_provider: 'sns',
+                origin: origin,
+                date: Date()
+            })
+            res.json({
+                "st": "sent",
+                "provider": "sns",
+                "requestId": requestId,
+            })
         }).catch((err) => {
+            Message.create({
+                phoneNumber: phoneNumber,
+                requestId: requestId,
+                status: 'failed',
+                channel: 'api',
+                last_provider: 'sns',
+                origin: origin,
+                date: Date()
+            })
+            res.json({
+                "st": "error",
+                "provider": "sns",
+                "requestId": requestId,
+            })
             console.error('SOY EL ERROR', err, err.stack);
+            res.statusMessage = "Error on SMS providers";
+            res.status(500).end();
         });
-        // SI RECIBO TODOS LOS ATRIBUTOS
-
-        // LOCALSTACK
-        // LOCALSTACK
-        // SUPONIENDO QUE TODO ESTA BIEN
-        // UNA VEZ QUE VUELVA DE LOCALSTACK LO GUARDO EN LA DB
-        // publish(msg, phoneNumber)
-        //     .then((answ) => {
-        //         console.log('hola soy answer:', answ)
-        //         Message.create({
-        //             phoneNumber: phoneNumber,
-        //             requestId: answ.RequestId,
-        //             status: 'success',
-        //             channel: 'api',
-        //             last_provider: 'sns',
-        //             origin: 'algo',
-        //             date: Date()
-        //         })
-        //         res.json({
-        //             "st": "sent",
-        //             "provider": "sns",
-        //             "requestId": answ.RequestId,
-        //         })
-        //     }
-        //     )
-
-        // LOCALSTACK
-        // LOCALSTACK
-
-        // SUCCESS RESPONSE
     }
+})
 
+router.get('/seed', function(req,res){
+    var status = ['success', 'failed']
+    for (let i = 0; i < 100; i++) {
+        var fecha = Math.floor(Math.random()*7+1)+'-'+Math.floor(Math.random()*28+1)+'-2019'
+        Message.create({
+            phoneNumber: faker.phone.phoneNumber(0),
+            requestId: Math.floor(Math.random() * 1000),
+            status: status[Math.floor(Math.random() * status.length)],
+            channel: 'api',
+            last_provider: 'sns',
+            origin: 'seed',
+            date: fecha
+        })
+    }
+    res.send('listo')
 })
 
 router.get('/:requestId', function (req, res) {
