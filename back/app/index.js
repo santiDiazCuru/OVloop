@@ -24,7 +24,7 @@ mongoose.connect("mongodb://mongo:27017/ovloop")
 app.set("port", process.env.PORT || 8080);
 
 // MIDDLEWARES
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '../src/public')));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/", router);
 
 app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, './public', 'index.html'));
+    res.sendFile(path.join(__dirname, '../src/public', 'index.html'));
 })
 
 const server = app.listen(app.get('port'), () => {
