@@ -40,7 +40,7 @@ router.post('/', function (req, res) {
         };
 
         // Create promise and SNS service object
-        var publishTextPromise = new AWS.SNS({ endpoint: `http://localshost:4575` }).publish(params).promise();
+        var publishTextPromise = new AWS.SNS({ endpoint: `http://localhost:4575` }).publish(params).promise();
         // { endpoint: `${process.env.LOCALSTACK_HOSTNAME}:4575` }
         // Handle promise's fulfilled/rejected states
         publishTextPromise.then((data) => {
