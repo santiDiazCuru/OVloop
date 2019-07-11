@@ -15,16 +15,21 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useCreateIndex', true);
 // mongoose.set('useFindAndModify', false);
 
-// CONNECT TO DB
+// CONNECT TO DB (con docker!!!!)
 mongoose.connect("mongodb://mongo:27017/ovloop")
     .then(() => console.log('mongoDB connected to ovloop'))
     .catch(err => console.log('db error: ', err));
+
+// CONNECT TO DB (para localhost)
+// mongoose.connect("mongodb://localhost/ovloop")
+//     .then(() => console.log('mongoDB connected to ovloop'))
+//     .catch(err => console.log('db error: ', err));
 
 // SETTTINGS
 app.set("port", process.env.PORT || 8080);
 
 // MIDDLEWARES
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '../src/public')));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -33,7 +38,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/", router);
 
 app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, './public', 'index.html'));
+    res.sendFile(path.join(__dirname, '../src/public', 'index.html'));
 })
 
 const server = app.listen(app.get('port'), () => {

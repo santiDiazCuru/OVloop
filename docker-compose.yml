@@ -25,11 +25,13 @@ services:
     image: localstack/localstack
     container_name: ovloop-api_localstack
     environment:
-      SERVICES: sns
+      # LOCALSTACK_HOSTNAME: localstack
+      SERVICES: "sns,sqs"
       DEFAULT_REGION: us-east-2
     ports:
       - 8070:8080
       - 4575:4575
+      - 4576:4576
   mongo:
     container_name: mongo
     image: mongo
