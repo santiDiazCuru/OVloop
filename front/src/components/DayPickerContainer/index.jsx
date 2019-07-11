@@ -12,6 +12,9 @@ class DayPickerContainer extends React.Component {
     this.handleTo= this.handleTo.bind(this)
 
   }
+  componentDidMount(){
+    
+  }
 
   handleFrom(day){
     console.log(day)
