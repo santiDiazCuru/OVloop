@@ -21,7 +21,11 @@ module.exports = {
             "@babel/env"
           ]
         }
-      }
+      },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader',
+    }
     ]
   },
   devtool: 'source-map'

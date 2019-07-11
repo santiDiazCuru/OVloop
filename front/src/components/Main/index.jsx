@@ -4,6 +4,7 @@ import Navbar from '../NavbarContainer'
 import Sidebar from '../SidebarContainer'
 import GeneralContainer from '../GeneralContainer'
 export default class MainContainer extends React.Component {
+    
 
     render() {
         return (
