@@ -1,21 +1,33 @@
 import React from 'react'
 import Template from '../Template'
+import {connect} from 'react-redux'
 
 
-
-export default class SidebarContainer extends React.Component {
+class GeneralContainer extends React.Component {
     constructor(){
         super();
         this.state = {}
-        this.handleChange = this.handleChange.bind(this);
-    }
-    handleChange(e){
-        console.log('hola, llegan los cambios')
-        e.preventDefault()
-        console.log(e.target.value)
     }
 
     render(){
-       return <Template handleChange={this.handleChange} title={'General stats'}/>
+       return <Template title={'General stats'}/>
+    }
+
+    componentDidMount(){
+        console.log('aa')
+    }
+
+}
+
+const mapStateToProps = function(state){
+    return {
+        
     }
 }
+const mapDispatchToProps = function(dispatch){
+    return {
+      setDateFrom: (day) => dispatch(setDateFrom(day)),
+      setDateTo: (day) => dispatch(setDateTo(day)),
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(GeneralContainer)
