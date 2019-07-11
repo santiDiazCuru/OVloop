@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
-// import moviesReducer from "./movies-reducer";
+import dateReducer from "./date-reducer";
 
 
 export default combineReducers({
-
+    date: dateReducer
 });

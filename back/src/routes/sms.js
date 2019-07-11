@@ -93,6 +93,8 @@ router.get('/seed', function(req,res){
     res.send('listo')
 })
 
+
+
 router.get('/:requestId', function (req, res) {
     var requestId = req.params.requestId
     // return res.send('OK')
@@ -114,6 +116,7 @@ router.get('/:requestId', function (req, res) {
         })
 
 })
+
 
 
 module.exports = router;
