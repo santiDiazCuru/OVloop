@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import Navbar from "../NavbarContainer";
 import Sidebar from "../SidebarContainer";
 import GeneralContainer from "../GeneralContainer";
+import ChannelContainer from '../ChannelContainer';
 
 
 export default class MainContainer extends React.Component {
@@ -28,14 +29,3 @@ export default class MainContainer extends React.Component {
     );
   }
 }
-
-// mapStateToProps = function(state){
-//     return {
-
-//     }
-// }
-// mapDispatchToProps = function(dispatch){
-//     return {
-
-//     }
-// }

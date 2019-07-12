@@ -3,8 +3,7 @@ const faker = require('faker')
 const express = require('express');
 const router = express.Router();
 const xid = require('xid-js')
-const Message = require('../../db/models/message');
-// const publish = require('../../publisher').publish
+const {Message} = require('../../db/models/message');
 var AWS = require('aws-sdk');
 AWS.config.update({ region: 'us-east-2' });
 

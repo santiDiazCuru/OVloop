@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Message = require('../../db/models/message');
+const { Message, channelArr } = require('../../db/models/message');
 
 
 router.get('/general', function (req, res) {
@@ -9,12 +9,16 @@ router.get('/general', function (req, res) {
     })
 })
 
+router.get('/listchannel', function (req, res) {
+    res.send(channelArr())
+})
+
 router.post('/date', function (req, res) {
-    if (req.body.from) {
+    if (req.body.from && req.body.to) {
         Message.find({
             date: {
                 $gte: req.body.from,
-                $lt: req.body.to
+                $lte: req.body.to
             }
         }).then((msgs) => {
             res.send(msgs)
@@ -26,17 +30,17 @@ router.post('/date', function (req, res) {
     }
 })
 
-router.get('/channel', function (req, res) {
-    if (req.body.from) {
+router.post('/channel', function (req, res) {
+    if (req.body.from && req.body.to) {
         Message.find({
             channel: req.body.channel,
             date: {
                 $gte: req.body.from,
-                $lt: req.body.to
+                $lte: req.body.to
             }
         }).then((msgs) => res.send(msgs))
     } else {
-        Message.find({channel: req.body.channel}).then((msgs) => res.send(msgs))
+        Message.find({ channel: req.body.channel }).then((msgs) => res.send(msgs))
     }
 })
 

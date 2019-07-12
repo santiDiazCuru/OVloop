@@ -1,4 +1,9 @@
+import React from "react";
 import ChartContainer from "../ChartContainer";
+import Template from "../Template";
+import { connect } from "react-redux";
+import { fetchMessages } from "../../redux/actions/messageActions";
+
 
 class GeneralContainer extends React.Component {
   constructor() {

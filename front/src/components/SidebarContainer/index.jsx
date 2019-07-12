@@ -1,14 +1,34 @@
-import React from 'react'
-import Sidebar from './Sidebar'
+import React from "react";
+import Sidebar from "./Sidebar";
+import { connect } from "react-redux";
+import { fetchListChannel } from "../../redux/actions/messageActions";
 
+class SidebarContainer extends React.Component {
+  constructor() {
+    super();
+  }
 
-export default class SidebarContainer extends React.Component {
-    constructor(){
-        super();
-        this.state = {}
-    }
+  render() {
+    return <Sidebar channels={this.props.channel}/>;
+  }
 
-    render(){
-       return <Sidebar/>
-    }
+  componentDidMount() {
+    this.props.fetchListChannel();
+  }
 }
+
+const mapStateToProps = function(state) {
+  return {
+    channel: state.messages.listChannel
+  };
+};
+const mapDispatchToProps = function(dispatch) {
+  return {
+    fetchListChannel: () => dispatch(fetchListChannel())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SidebarContainer);
