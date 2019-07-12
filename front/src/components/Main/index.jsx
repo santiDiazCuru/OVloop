@@ -18,6 +18,7 @@ export default class MainContainer extends React.Component {
             <div className="col-10">
               <Switch>
                 <Route path="/general" component={GeneralContainer} />
+                <Route path="/channel" component={ChannelContainer} />
                 <Redirect from="/" to="/general" />
               </Switch>
             </div>

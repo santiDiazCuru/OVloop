@@ -26,10 +26,6 @@ router.post('/general', function (req, res) {
     }
 })
 
-
-
-
-
 // router.get('/status', function (req, res) {
 
 //     if (req.body.from) {
@@ -44,19 +40,19 @@ router.post('/general', function (req, res) {
 //         Message.find({status: req.body.status}).then((msgs) => res.send(msgs))
 //     }
 // })
-// router.get('/channel', function (req, res) {
+router.get('/channel', function (req, res) {
 
-//     if (req.body.from) {
-//         Message.find({
-//             status: req.body.status,
-//             date: {
-//                 $gte: req.body.from,
-//                 $lt: req.body.to
-//             }
-//         }).then((msgs) => res.send(msgs))
-//     } else {
-//         Message.find({status: req.body.status}).then((msgs) => res.send(msgs))
-//     }
-// })
+    if (req.body.from) {
+        Message.find({
+            channel: req.body.channel,
+            date: {
+                $gte: req.body.from,
+                $lt: req.body.to
+            }
+        }).then((msgs) => res.send(msgs))
+    } else {
+        Message.find({channel: req.body.channel}).then((msgs) => res.send(msgs))
+    }
+})
 
 module.exports = router
