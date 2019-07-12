@@ -11,7 +11,6 @@ AWS.config.update({ region: 'us-east-2' });
 
 //RUTAS
 router.post('/', function (req, res) {
-
     var phoneNumber = req.body.phoneNumber
     var msg = req.body.msg
     var origin = req.body.origin
@@ -76,8 +75,8 @@ router.post('/', function (req, res) {
     }
 })
 
-router.get('/seed', function(req,res){
-    var status = ['success', 'failed']
+router.post('/seed', function(req,res){
+    var status = ['success', 'failed','success','success','success']
     for (let i = 0; i < 100; i++) {
         // var fecha = Math.floor(Math.random()*7+1)+'-'+Math.floor(Math.random()*28+1)+'-2019'
         Message.create({
