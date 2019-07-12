@@ -19,11 +19,35 @@ class DayPickerContainer extends React.Component {
   };
 
   handleFrom(day) {
-    this.props.setDateFrom(day.toISOString())
+    // console.log(day, this.props.to>day.toISOString())
+    // this.props.setDateFrom(day.toISOString())
+    if(this.props.to){
+      if(day.toISOString()<this.props.to){
+        this.props.setDateFrom(day.toISOString())
+      }
+      else{
+        // alert ('No')
+      }
+    }
+    else{
+      this.props.setDateFrom(day.toISOString())
+    }
+    //day<this.props.to? this.props.setDateFrom(day.toISOString()) : alert ('No')
   };
 
   handleTo(day) {
-    this.props.setDateTo(day.toISOString())
+    if(this.props.from){
+      if(day.toISOString()>this.props.from){
+        this.props.setDateTo(day.toISOString())
+      }
+      else{
+        // alert ('No')
+      }
+    }
+    else{
+      this.props.setDateTo(day.toISOString())
+    }
+    // day>this.props.from? this.props.setDateTo(day.toISOString()) : alert('No')
   };
 
   render() {

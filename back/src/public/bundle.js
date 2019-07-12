@@ -52567,7 +52567,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -83217,49 +83217,56 @@ function (_React$Component) {
   _inherits(ChartContainer, _React$Component);
 
   function ChartContainer() {
-    var _this;
-
     _classCallCheck(this, ChartContainer);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(ChartContainer).call(this));
-    _this.state = {
-      clicked: false,
-      style: {
-        data: {
-          fill: "tomato"
-        }
-      }
-    };
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(ChartContainer).call(this));
   }
 
   _createClass(ChartContainer, [{
     key: "render",
     value: function render() {
+      var successPercent = Math.round(this.props.success.length * 100 / this.props.total.length);
+      var failedPercent = Math.round(this.props.failed.length * 100 / this.props.total.length);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-6"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(victory__WEBPACK_IMPORTED_MODULE_2__["VictoryChart"], {
-        domainPadding: {
-          x: 50,
-          y: [0, 20]
-        },
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(victory__WEBPACK_IMPORTED_MODULE_2__["VictoryChart"] // domainPadding={{ x: 50, y: [0, 20] }}
+      , {
+        domainPadding: 25,
+        alignment: "start",
         scale: {
           x: "linear"
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(victory__WEBPACK_IMPORTED_MODULE_2__["VictoryBar"], {
         dataComponent: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(victory__WEBPACK_IMPORTED_MODULE_2__["Bar"], null),
-        style: this.state.style,
+        categories: {
+          x: ["Total", "Success", "Failed"]
+        } // style={{data: { fill: "" }}}
+        ,
+        style: {
+          data: {
+            fill: function fill(d) {
+              return d.fill;
+            },
+            opacity: function opacity(d) {
+              return d.opacity;
+            }
+          }
+        },
         data: [{
-          x: "Total: ".concat(this.props.total.length),
-          y: this.props.total.length
+          x: "Total",
+          y: this.props.total.length,
+          label: this.props.total.length
         }, {
-          x: "Total: ".concat(this.props.success.length),
-          y: this.props.success.length
+          x: "Success",
+          y: this.props.success.length,
+          label: this.props.success.length
         }, {
-          x: "Total: ".concat(this.props.failed.length),
-          y: this.props.failed.length
+          x: "Failed",
+          y: this.props.failed.length,
+          label: this.props.failed.length,
+          fill: "tomato"
         }]
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-6"
@@ -83268,28 +83275,20 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(victory__WEBPACK_IMPORTED_MODULE_2__["VictoryPie"], {
         standalone: false,
         data: [{
-          x: "Success",
+          x: "Success: ".concat(successPercent, "%"),
           y: this.props.success.length
         }, {
-          x: "Failed",
+          x: "Failed: ".concat(failedPercent, "%"),
           y: this.props.failed.length
-        }],
-        innerRadius: 50,
-        labelRadius: 100,
+        }] // innerRadius={50}
+        ,
+        labelRadius: 90,
         style: {
           labels: {
-            fontSize: 15,
+            fontSize: 13,
             fill: "white"
           }
         }
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(victory__WEBPACK_IMPORTED_MODULE_2__["VictoryLabel"], {
-        textAnchor: "middle",
-        style: {
-          fontSize: 20
-        },
-        x: 200,
-        y: 200,
-        text: "Total: " + this.props.total.length
       }))));
     }
   }]);
@@ -83409,12 +83408,30 @@ function (_React$Component) {
   }, {
     key: "handleFrom",
     value: function handleFrom(day) {
-      this.props.setDateFrom(day.toISOString());
+      // console.log(day, this.props.to>day.toISOString())
+      // this.props.setDateFrom(day.toISOString())
+      if (this.props.to) {
+        if (day.toISOString() < this.props.to) {
+          this.props.setDateFrom(day.toISOString());
+        } else {// alert ('No')
+        }
+      } else {
+        this.props.setDateFrom(day.toISOString());
+      } //day<this.props.to? this.props.setDateFrom(day.toISOString()) : alert ('No')
+
     }
   }, {
     key: "handleTo",
     value: function handleTo(day) {
-      this.props.setDateTo(day.toISOString());
+      if (this.props.from) {
+        if (day.toISOString() > this.props.from) {
+          this.props.setDateTo(day.toISOString());
+        } else {// alert ('No')
+        }
+      } else {
+        this.props.setDateTo(day.toISOString());
+      } // day>this.props.from? this.props.setDateTo(day.toISOString()) : alert('No')
+
     }
   }, {
     key: "render",
