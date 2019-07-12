@@ -39,6 +39,7 @@ router.post('/', function (req, res) {
         publishTextPromise.then((data) => {
             console.log(`Message response`, data);
             console.log("MessageID is " + data.MessageId);
+            var fecha = new Date()
             Message.create({
                 phoneNumber: phoneNumber,
                 requestId: requestId,
@@ -46,7 +47,7 @@ router.post('/', function (req, res) {
                 channel: 'api',
                 last_provider: 'sns',
                 origin: origin,
-                date: Date()
+                date: fecha.toISOString()
             })
             res.json({
                 "st": "sent",
@@ -54,6 +55,7 @@ router.post('/', function (req, res) {
                 "requestId": requestId,
             })
         }).catch((err) => {
+            var fecha = new Date()
             Message.create({
                 phoneNumber: phoneNumber,
                 requestId: requestId,
@@ -61,7 +63,7 @@ router.post('/', function (req, res) {
                 channel: 'api',
                 last_provider: 'sns',
                 origin: origin,
-                date: Date()
+                date: fecha.toISOString()
             })
             res.json({
                 "st": "error",

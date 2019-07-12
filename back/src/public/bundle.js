@@ -83225,6 +83225,8 @@ function (_React$Component) {
   _createClass(ChartContainer, [{
     key: "render",
     value: function render() {
+      var successPercent = Math.round(this.props.success.length * 100 / this.props.total.length);
+      var failedPercent = Math.round(this.props.failed.length * 100 / this.props.total.length);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -83273,29 +83275,20 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(victory__WEBPACK_IMPORTED_MODULE_2__["VictoryPie"], {
         standalone: false,
         data: [{
-          x: "Success",
+          x: "Success: ".concat(successPercent, "%"),
           y: this.props.success.length
         }, {
-          x: "Failed",
+          x: "Failed: ".concat(failedPercent, "%"),
           y: this.props.failed.length
         }] // innerRadius={50}
         ,
         labelRadius: 90,
         style: {
           labels: {
-            fontSize: 10,
+            fontSize: 13,
             fill: "white"
           }
         }
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(victory__WEBPACK_IMPORTED_MODULE_2__["VictoryLabel"], {
-        textAnchor: "middle",
-        style: {
-          fontSize: 20,
-          fill: "white"
-        },
-        x: 200,
-        y: 200,
-        text: "Total: " + this.props.total.length
       }))));
     }
   }]);
@@ -83415,12 +83408,30 @@ function (_React$Component) {
   }, {
     key: "handleFrom",
     value: function handleFrom(day) {
-      this.props.setDateFrom(day.toISOString());
+      // console.log(day, this.props.to>day.toISOString())
+      // this.props.setDateFrom(day.toISOString())
+      if (this.props.to) {
+        if (day.toISOString() < this.props.to) {
+          this.props.setDateFrom(day.toISOString());
+        } else {// alert ('No')
+        }
+      } else {
+        this.props.setDateFrom(day.toISOString());
+      } //day<this.props.to? this.props.setDateFrom(day.toISOString()) : alert ('No')
+
     }
   }, {
     key: "handleTo",
     value: function handleTo(day) {
-      this.props.setDateTo(day.toISOString());
+      if (this.props.from) {
+        if (day.toISOString() > this.props.from) {
+          this.props.setDateTo(day.toISOString());
+        } else {// alert ('No')
+        }
+      } else {
+        this.props.setDateTo(day.toISOString());
+      } // day>this.props.from? this.props.setDateTo(day.toISOString()) : alert('No')
+
     }
   }, {
     key: "render",

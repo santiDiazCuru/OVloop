@@ -10,11 +10,11 @@ router.get('/general', function (req, res) {
 })
 
 router.post('/date', function (req, res) {
-    if (req.body.from) {
+    if (req.body.from && req.body.to) {
         Message.find({
             date: {
                 $gte: req.body.from,
-                $lt: req.body.to
+                $lte: req.body.to
             }
         }).then((msgs) => {
             res.send(msgs)
@@ -32,7 +32,7 @@ router.get('/channel', function (req, res) {
             channel: req.body.channel,
             date: {
                 $gte: req.body.from,
-                $lt: req.body.to
+                $lte: req.body.to
             }
         }).then((msgs) => res.send(msgs))
     } else {
