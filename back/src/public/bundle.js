@@ -30711,7 +30711,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -37260,6 +37260,8 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
 
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
@@ -37270,49 +37272,17 @@ __webpack_require__.r(__webpack_exports__);
     className: "nav flex-column"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: "nav-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     className: "nav-link active",
     href: "#"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    "data-feather": "home"
-  }), "Dashboard ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+  }, "General ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "sr-only"
   }, "(current)"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: "nav-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     className: "nav-link",
     href: "#"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    "data-feather": "file"
-  }), "Orders")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-    className: "nav-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    className: "nav-link",
-    href: "#"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    "data-feather": "shopping-cart"
-  }), "Products")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-    className: "nav-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    className: "nav-link",
-    href: "#"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    "data-feather": "users"
-  }), "Customers")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-    className: "nav-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    className: "nav-link",
-    href: "#"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    "data-feather": "bar-chart-2"
-  }), "Reports")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-    className: "nav-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    className: "nav-link",
-    href: "#"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    "data-feather": "layers"
-  }), "Integrations")))));
+  }, "Canal")))));
 });
 
 /***/ }),
@@ -37527,7 +37497,7 @@ var fetchMessages = function fetchMessages() {
 };
 var fetchMessagesByDate = function fetchMessagesByDate(from, to) {
   return function (dispatch) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/stats/general', {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/stats/date', {
       from: from,
       to: to
     }).then(function (res) {

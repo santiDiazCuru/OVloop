@@ -15,7 +15,7 @@ export const fetchMessages = () => dispatch => {
 
 
 export const fetchMessagesByDate = (from, to) => dispatch => {
-    return axios.post('/stats/general', { from: from, to: to })
+    return axios.post('/stats/date', { from: from, to: to })
         .then(res => res.data)
         .then(messages => dispatch(receiveMessages(messages)))
 };

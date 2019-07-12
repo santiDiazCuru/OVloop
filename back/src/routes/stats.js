@@ -4,13 +4,12 @@ const Message = require('../../db/models/message');
 
 
 router.get('/general', function (req, res) {
-    Message.find({}).then((msgs) => {
-        res.send(msgs)
+    Message.find({ status: 'success' }).then((msgs) => {
+        res.json(msgs)
     })
 })
 
-router.post('/general', function (req, res) {
-    // console.log(req.body,'soy req.bodyyyyyyy y req.gato')
+router.post('/date', function (req, res) {
     if (req.body.from) {
         Message.find({
             date: {
@@ -25,7 +24,6 @@ router.post('/general', function (req, res) {
             res.send(msgs)
         })
     }
-
 })
 
 
