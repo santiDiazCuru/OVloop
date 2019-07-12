@@ -30711,7 +30711,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -36873,6 +36873,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_day_picker_lib_style_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_day_picker_lib_style_css__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _redux_actions_dateActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../redux/actions/dateActions */ "./src/redux/actions/dateActions.js");
+/* harmony import */ var _redux_actions_messageActions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../redux/actions/messageActions */ "./src/redux/actions/messageActions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -36890,6 +36891,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -36910,20 +36912,25 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(DayPickerContainer).call(this, props));
     _this.handleFrom = _this.handleFrom.bind(_assertThisInitialized(_this));
     _this.handleTo = _this.handleTo.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(DayPickerContainer, [{
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      this.props.fetchMessagesByDate(this.props.from, this.props.to);
+    }
+  }, {
     key: "handleFrom",
     value: function handleFrom(day) {
-      console.log(day);
-      this.props.setDateFrom(day);
+      this.props.setDateFrom(day.toISOString());
     }
   }, {
     key: "handleTo",
     value: function handleTo(day) {
-      console.log(day);
-      this.props.setDateTo(day);
+      this.props.setDateTo(day.toISOString());
     }
   }, {
     key: "render",
@@ -36941,17 +36948,21 @@ function (_React$Component) {
           return _this2.handleTo(day);
         }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "btn btn-sm btn-info ml-2"
+        className: "btn btn-sm btn-info ml-2",
+        onClick: this.handleSubmit
       }, "Filtrar"));
     }
   }]);
 
   return DayPickerContainer;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); // mapStateToProps = function(state){
-//     return {
-//     }
-// }
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    from: state.date.from,
+    to: state.date.to
+  };
+};
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
@@ -36960,11 +36971,14 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     setDateTo: function setDateTo(day) {
       return dispatch(Object(_redux_actions_dateActions__WEBPACK_IMPORTED_MODULE_4__["setDateTo"])(day));
+    },
+    fetchMessagesByDate: function fetchMessagesByDate(from, to) {
+      return dispatch(Object(_redux_actions_messageActions__WEBPACK_IMPORTED_MODULE_5__["fetchMessagesByDate"])(from, to));
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(null, mapDispatchToProps)(DayPickerContainer));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps, mapDispatchToProps)(DayPickerContainer));
 
 /***/ }),
 
@@ -36981,6 +36995,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Template__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Template */ "./src/components/Template/index.jsx");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _redux_actions_messageActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../redux/actions/messageActions */ "./src/redux/actions/messageActions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -36998,6 +37013,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -37028,7 +37044,7 @@ function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log('aa');
+      this.props.fetchMessages();
     }
   }]);
 
@@ -37036,37 +37052,16 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
-  return {};
+  return {
+    messages: state.messages.list
+  };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    setDateFrom: function (_setDateFrom) {
-      function setDateFrom(_x) {
-        return _setDateFrom.apply(this, arguments);
-      }
-
-      setDateFrom.toString = function () {
-        return _setDateFrom.toString();
-      };
-
-      return setDateFrom;
-    }(function (day) {
-      return dispatch(setDateFrom(day));
-    }),
-    setDateTo: function (_setDateTo) {
-      function setDateTo(_x2) {
-        return _setDateTo.apply(this, arguments);
-      }
-
-      setDateTo.toString = function () {
-        return _setDateTo.toString();
-      };
-
-      return setDateTo;
-    }(function (day) {
-      return dispatch(setDateTo(day));
-    })
+    fetchMessages: function fetchMessages() {
+      return dispatch(Object(_redux_actions_messageActions__WEBPACK_IMPORTED_MODULE_3__["fetchMessages"])());
+    }
   };
 };
 
@@ -37498,6 +37493,53 @@ var setDateTo = function setDateTo(to) {
 
 /***/ }),
 
+/***/ "./src/redux/actions/messageActions.js":
+/*!*********************************************!*\
+  !*** ./src/redux/actions/messageActions.js ***!
+  \*********************************************/
+/*! exports provided: receiveMessages, fetchMessages, fetchMessagesByDate */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveMessages", function() { return receiveMessages; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchMessages", function() { return fetchMessages; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchMessagesByDate", function() { return fetchMessagesByDate; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../constants */ "./src/constants.js");
+
+
+var receiveMessages = function receiveMessages(messages) {
+  return {
+    type: _constants__WEBPACK_IMPORTED_MODULE_1__["SET_MESSAGE"],
+    messages: messages
+  };
+};
+var fetchMessages = function fetchMessages() {
+  return function (dispatch) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/stats/general').then(function (res) {
+      return res.data;
+    }).then(function (messages) {
+      return dispatch(receiveMessages(messages));
+    });
+  };
+};
+var fetchMessagesByDate = function fetchMessagesByDate(from, to) {
+  return function (dispatch) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/stats/general', {
+      from: from,
+      to: to
+    }).then(function (res) {
+      return res.data;
+    }).then(function (messages) {
+      return dispatch(receiveMessages(messages));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./src/redux/reducers/date-reducer.js":
 /*!********************************************!*\
   !*** ./src/redux/reducers/date-reducer.js ***!
@@ -37546,13 +37588,13 @@ var initialState = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _date_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./date-reducer */ "./src/redux/reducers/date-reducer.js");
-/* harmony import */ var _message_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./message-reducer */ "./src/redux/reducers/message-reducer.js");
+/* harmony import */ var _message_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./message-reducer */ "./src/redux/reducers/message-reducer.js");
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   date: _date_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
-  messages: _message_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
+  messages: _message_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
 }));
 
 /***/ }),

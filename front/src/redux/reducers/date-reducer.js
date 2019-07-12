@@ -2,7 +2,7 @@ import { SET_DATE_FROM, SET_DATE_TO } from '../../constants';
 
 const initialState = {
   from: '',
-  to: '',
+  to: ''
 }
 
 export default (state = initialState, action) => {
