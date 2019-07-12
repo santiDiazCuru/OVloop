@@ -74373,19 +74373,11 @@ var createContainer = makeCreateContainerFunction({
 
 /***/ }),
 
-<<<<<<< HEAD
 /***/ "./node_modules/victory-create-container/es/index.js":
 /*!***********************************************************!*\
   !*** ./node_modules/victory-create-container/es/index.js ***!
   \***********************************************************/
 /*! exports provided: combineContainerMixins, makeCreateContainerFunction, createContainer */
-=======
-/***/ "./node_modules/react-router-dom/esm/react-router-dom.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
-  \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
->>>>>>> ca52597a9a1eb4200940f3fe895fe32cfb41edf7
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -83244,9 +83236,11 @@ function (_React$Component) {
   _createClass(ChartContainer, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(victory__WEBPACK_IMPORTED_MODULE_2__["VictoryChart"], {
-        height: 400,
-        width: 400,
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-6"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(victory__WEBPACK_IMPORTED_MODULE_2__["VictoryChart"], {
         domainPadding: {
           x: 50,
           y: [0, 20]
@@ -83258,13 +83252,45 @@ function (_React$Component) {
         dataComponent: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(victory__WEBPACK_IMPORTED_MODULE_2__["Bar"], null),
         style: this.state.style,
         data: [{
-          x: "Sent:",
-          y: this.props.sent.length
+          x: "Total: ".concat(this.props.total.length),
+          y: this.props.total.length
         }, {
-          x: "Failed:",
+          x: "Total: ".concat(this.props.success.length),
+          y: this.props.success.length
+        }, {
+          x: "Total: ".concat(this.props.failed.length),
           y: this.props.failed.length
         }]
-      })));
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-6"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
+        viewBox: "0 0 400 400"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(victory__WEBPACK_IMPORTED_MODULE_2__["VictoryPie"], {
+        standalone: false,
+        data: [{
+          x: "Success",
+          y: this.props.success.length
+        }, {
+          x: "Failed",
+          y: this.props.failed.length
+        }],
+        innerRadius: 50,
+        labelRadius: 100,
+        style: {
+          labels: {
+            fontSize: 15,
+            fill: "white"
+          }
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(victory__WEBPACK_IMPORTED_MODULE_2__["VictoryLabel"], {
+        textAnchor: "middle",
+        style: {
+          fontSize: 20
+        },
+        x: 200,
+        y: 200,
+        text: "Total: " + this.props.total.length
+      }))));
     }
   }]);
 
@@ -83273,8 +83299,9 @@ function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    sent: state.messages.sent,
-    failed: state.messages.failed
+    success: state.messages.success,
+    failed: state.messages.failed,
+    total: state.messages.list
   };
 };
 
@@ -83453,6 +83480,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Template__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Template */ "./src/components/Template/index.jsx");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _redux_actions_messageActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../redux/actions/messageActions */ "./src/redux/actions/messageActions.js");
+/* harmony import */ var _ChartContainer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../ChartContainer */ "./src/components/ChartContainer/index.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -83470,6 +83498,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -83494,18 +83523,14 @@ function (_React$Component) {
   _createClass(GeneralContainer, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Template__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Template__WEBPACK_IMPORTED_MODULE_1__["default"], {
         title: "General stats"
-      });
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ChartContainer__WEBPACK_IMPORTED_MODULE_4__["default"], null)));
     }
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-<<<<<<< HEAD
-      console.log("aa");
-=======
       this.props.fetchMessages();
->>>>>>> ca52597a9a1eb4200940f3fe895fe32cfb41edf7
     }
   }]);
 
@@ -83853,17 +83878,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _DayPickerContainer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../DayPickerContainer */ "./src/components/DayPickerContainer/index.jsx");
-/* harmony import */ var _ChartContainer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ChartContainer */ "./src/components/ChartContainer/index.jsx");
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = (function (_ref) {
   var title = _ref.title;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "d-flex  flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+    className: "mr-5"
+  }, title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "btn-toolbar mb-2 mb-md-0"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_DayPickerContainer__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ChartContainer__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_DayPickerContainer__WEBPACK_IMPORTED_MODULE_1__["default"], null)));
 });
 
 /***/ }),
@@ -83984,7 +84009,19 @@ var fetchMessages = function fetchMessages() {
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/stats/general').then(function (res) {
       return res.data;
     }).then(function (messages) {
-      return dispatch(receiveMessages(messages));
+      var messagesToReducer = {
+        success: [],
+        failed: [],
+        list: messages
+      };
+
+      for (var i = 0; i < messages.length; i++) {
+        if (messages[i].status == 'success') {
+          messagesToReducer.success.push(messages[i]);
+        } else messagesToReducer.failed.push(messages[i]);
+      }
+
+      dispatch(receiveMessages(messagesToReducer));
     });
   };
 };
@@ -83996,7 +84033,19 @@ var fetchMessagesByDate = function fetchMessagesByDate(from, to) {
     }).then(function (res) {
       return res.data;
     }).then(function (messages) {
-      return dispatch(receiveMessages(messages));
+      var messagesToReducer = {
+        success: [],
+        failed: [],
+        list: messages
+      };
+
+      for (var i = 0; i < messages.length; i++) {
+        if (messages[i].status == 'success') {
+          messagesToReducer.success.push(messages[i]);
+        } else messagesToReducer.failed.push(messages[i]);
+      }
+
+      dispatch(receiveMessages(messagesToReducer));
     });
   };
 };
@@ -84074,8 +84123,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants */ "./src/constants.js");
 
 var initialState = {
-  sent: [],
-  failed: []
+  success: [],
+  failed: [],
+  list: []
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -84084,7 +84134,9 @@ var initialState = {
   switch (action.type) {
     case _constants__WEBPACK_IMPORTED_MODULE_0__["SET_MESSAGE"]:
       return Object.assign({}, state, {
-        sent: action.messages
+        success: action.messages.success,
+        failed: action.messages.failed,
+        list: action.messages.list
       });
 
     default:

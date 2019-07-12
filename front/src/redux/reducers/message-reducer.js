@@ -1,14 +1,15 @@
 import { SET_MESSAGE } from '../../constants';
 
 const initialState = {
-  sent: [],
-  failed: []
+  success: [],
+  failed: [],
+  list: []
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_MESSAGE:
-      return Object.assign({}, state, { sent: action.messages, });
+      return Object.assign({}, state, { success: action.messages.success, failed: action.messages.failed, list: action.messages.list });
     default:
       return state;
   }

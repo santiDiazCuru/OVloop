@@ -10,7 +10,6 @@ router.get('/general', function (req, res) {
 })
 
 router.post('/general', function (req, res) {
-    // console.log(req.body,'soy req.bodyyyyyyy y req.gato')
     if (req.body.from) {
         Message.find({
             date: {
@@ -25,7 +24,6 @@ router.post('/general', function (req, res) {
             res.send(msgs)
         })
     }
-
 })
 
 
