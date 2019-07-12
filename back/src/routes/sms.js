@@ -11,7 +11,6 @@ AWS.config.update({ region: 'us-east-2' });
 
 //RUTAS
 router.post('/', function (req, res) {
-
     var phoneNumber = req.body.phoneNumber
     var msg = req.body.msg
     var origin = req.body.origin
