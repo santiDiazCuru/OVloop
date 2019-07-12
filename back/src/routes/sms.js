@@ -79,7 +79,7 @@ router.post('/', function (req, res) {
 router.get('/seed', function(req,res){
     var status = ['success', 'failed']
     for (let i = 0; i < 100; i++) {
-        var fecha = Math.floor(Math.random()*7+1)+'-'+Math.floor(Math.random()*28+1)+'-2019'
+        // var fecha = Math.floor(Math.random()*7+1)+'-'+Math.floor(Math.random()*28+1)+'-2019'
         Message.create({
             phoneNumber: faker.phone.phoneNumber(0),
             requestId: Math.floor(Math.random() * 1000),
@@ -87,7 +87,7 @@ router.get('/seed', function(req,res){
             channel: 'api',
             last_provider: 'sns',
             origin: 'seed',
-            date: fecha
+            date: faker.date.between('2019-01-01', '2019-07-11').toISOString()
         })
     }
     res.send('listo')
