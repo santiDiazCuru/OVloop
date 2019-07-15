@@ -3,8 +3,9 @@
 
 const router = require('express').Router();
 
+const version = 'v1'
 
-router.use('/v1/sms', require('./sms'));
+router.use(`/${version}/sms`, require('./sms'));
 router.use('/stats', require('./stats'));
 
 

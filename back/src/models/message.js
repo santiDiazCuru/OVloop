@@ -12,5 +12,4 @@ var messagesModel = new mongoose.Schema({
 
 const Message = mongoose.model('messages', messagesModel)
 
-
-module.exports = Message;
+module.exports = Message
