@@ -1,5 +1,5 @@
-const Message = require('../models/message')
-
+const Message = require('../models/message');
+const OriginList = require('../models/originList');
 class MessagesDao {
 
     static getMessagesSent(requestId) {
@@ -7,37 +7,36 @@ class MessagesDao {
             requestId: requestId
         })
             .then((message) => {
-                return message
+                return message;
             })
     }
 
-    static getAllMessages() {
-        return Message.find().then((msgs) => {
-            return msgs
-        })
+    static getMessages(query) {
+        return Message.find(query)
+            .then((msgs) => {
+                return msgs;
+            })
     }
 
-    static getChannelMessages(channel) {
-        return Message.find({ channel: channel })
-            .then((msgs) => msgs)
-
+    static async getChannelsList() {
+        const Channels = await Message.findChannels()
+        return Channels;
     }
-
-    static getMessagesByDate(from, to) {
-        return Message.find({
-            date: {
-                $gte: from,
-                $lte: to
-            }
-        }).then((msgs) => {
-            return msgs
-        })
+    static getOriginsList() {
+        return OriginList.find({})
+            .then((origins) => { return origins });
     }
 
     static insert(message) {
-        return Message.create(message)
-            .then(message => {
-                return message
+        return OriginList.findOne({ origin: message.origin })
+            .then((origin) => {
+                if (origin == null) OriginList.create({ origin: message.origin })
+            })
+            .then((msg) => {
+                Message.create(message)
+                    .then(message => {
+                        return message
+                    })
             })
     }
 

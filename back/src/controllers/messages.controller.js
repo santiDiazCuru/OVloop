@@ -22,54 +22,78 @@ class MessagesController {
                 })
 
         } catch (error) {
-            res.statusMessage = "RequestId doesn't exist";
+            res.statusMessage = "Request Id doesn't exist";
             res.status(400).end();
         }
     }
 
-    static getAllMessages(req, res) {
-        try {
-            MessageDao.getAllMessages()
-                .then((msgs) => {
-                    res.json(msgs)
-                })
-
-        } catch (error) {
-            console.log(error, 'error')
-        }
+    static getChannelsList(req, res) {
+        MessageDao.getChannelsList()
+            .then((channels) => res.json(channels))
+    }
+    static getOriginsList(req, res) {
+        MessageDao.getOriginsList()
+            .then((origins) => res.json(origins))
     }
 
-    static getChannelMessages(req, res) {
-        try {
-            MessageDao.getChannelMessages(req.params.channel)
-                .then((msgs) => {
-                    res.json(msgs)
-                })
+    static getMessages(req, res) {
+        var channel = req.body.channel
+        var to = req.body.to
+        var from = req.body.from
+        var origin = req.body.origin
+        var query = {}
 
-        } catch (error) {
-            console.log(error, 'error')
-        }
-    }
-
-    static getMessagesByDate(req, res) {
-        try {
-            if (req.body.from && req.body.to) {
-                MessageDao.getMessagesByDate(req.body.from, req.body.to)
-                    .then((msgs) => {
-                        res.send(msgs)
-                    })
-            } else {
-                MessageDao.getAllMessages()
-                    .then((msgs) => {
-                        res.json(msgs)
-                    })
+        if (to && from) {
+            if (channel) {
+                query = {
+                    date: {
+                        $gte: from,
+                        $lt: to
+                    },
+                    channel: channel
+                }
             }
-        } catch (error) {
-            console.log(error, 'error')
+            else if (origin) {
+                query = {
+                    date: {
+                        $gte: from,
+                        $lt: to
+                    },
+                    origin: origin
+                }
+            }
+            else {
+                query = {
+                    date: {
+                        $gte: from,
+                        $lt: to
+                    },
+                }
+            }
+        } else {
+            if (channel) {
+                query = {
+                    channel: channel
+                }
+            }
+            else if (origin) {
+                query = {
+                    origin: origin
+                }
+            }
+            else {
+                query = {
+                }
+            }
         }
+        MessageDao.getMessages(query)
+            .then((msgs) => {
+                res.json(msgs)
+            })
     }
 
     static insert(req, res) {
+        var channel = req.body.channel
         var phoneNumber = req.body.phoneNumber
         var msg = req.body.msg
         var origin = req.body.origin
@@ -80,6 +104,7 @@ class MessagesController {
             typeof phoneNumber !== 'string' ||
             typeof msg !== 'string' ||
             typeof origin !== 'string' ||
+            typeof channel !== 'string' ||
             typeof requestId !== 'string'
         ) {
             res.statusMessage = "Missing attributes";
@@ -105,7 +130,7 @@ class MessagesController {
                         phoneNumber: phoneNumber,
                         requestId: requestId,
                         status: 'success',
-                        channel: 'api',
+                        channel: channel,
                         last_provider: 'sns',
                         origin: origin,
                         date: fecha.toISOString()
