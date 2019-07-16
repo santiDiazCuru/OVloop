@@ -2,7 +2,6 @@ const express = require("express");
 const morgan = require("morgan");
 const path = require('path');
 const router = require("./src/routes/index.routes");
-// const db = require('../db/models').db
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
