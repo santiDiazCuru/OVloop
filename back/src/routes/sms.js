@@ -8,8 +8,8 @@ const messagesController = require('../controllers/messages.controller')
 
 //RUTAS
 
-router.post('/seed', function(req,res){
-    var status = ['success', 'failed','success','success','success','success']
+router.post('/seed', function (req, res) {
+    var status = ['success', 'failed', 'success', 'success', 'success', 'success']
     for (let i = 0; i < 100; i++) {
         // var fecha = Math.floor(Math.random()*7+1)+'-'+Math.floor(Math.random()*28+1)+'-2019'
         Message.create({

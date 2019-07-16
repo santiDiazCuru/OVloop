@@ -3,7 +3,8 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import Navbar from "../NavbarContainer";
 import Sidebar from "../SidebarContainer";
 import GeneralContainer from "../GeneralContainer";
-
+import ChannelContainer from "../ChannelContainer";
+import OriginContainer from "../OriginContainer";
 
 export default class MainContainer extends React.Component {
   render() {
@@ -18,7 +19,8 @@ export default class MainContainer extends React.Component {
             <div className="col-10">
               <Switch>
                 <Route path="/general" component={GeneralContainer} />
-                <Route path="/channel" component={ChannelContainer} />
+                <Route path="/channel/:channel" component={ChannelContainer} />
+                <Route path="/origin/:origin" component={OriginContainer} />
                 <Redirect from="/" to="/general" />
               </Switch>
             </div>
