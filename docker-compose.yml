@@ -6,7 +6,6 @@ services:
     image: ovloop-api
     volumes:
       - ./back/src:/app/src
-      - ./back/db:/app/db
     container_name: ovloop-api_dev
     ports:
       - 8080:8080
