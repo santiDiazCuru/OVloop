@@ -41,3 +41,27 @@ services:
 networks:
   default:
     name: ovloop-app
+
+
+    #     # front/docker-compose.yml
+# version: '2'
+# services:
+#   front:
+#     ...
+#     networks:
+#       - some-net
+# networks:
+#   some-net:
+#     driver: bridge
+
+
+# # api/docker-compose.yml
+# version: '2'
+# services:
+#   api:
+#     ...
+#     networks:
+#       - front_some-net
+# networks:
+#   front_some-net:
+#     external: true

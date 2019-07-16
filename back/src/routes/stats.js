@@ -5,7 +5,7 @@ const Message = require('../../db/models/message');
 
 router.get('/general', function (req, res) {
     Message.find().then((msgs) => {
-        res.json(msgs)
+        res.send(msgs)
     })
 })
 
