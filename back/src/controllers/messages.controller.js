@@ -11,61 +11,73 @@ const generateUuid = () => {
 
 class MessagesController {
     static getMessagesSent(req, res) {
-        try {
-            MessageDao.getMessagesSent(req.params.requestId)
-                .then((msg) => {
-                    // console.log(msg)
-                    // SI ENCUENTRA EL MENSAJE
+        MessageDao.getMessagesSent(req.params.requestId)
+            .then((msg) => {
+                // console.log(msg)
+                // SI ENCUENTRA EL MENSAJE
+                if (msg) {
                     res.statusMessage = "Ok";
                     res.status(200)
                     res.json(msg)
-                })
-
-        } catch (error) {
-            res.statusMessage = "RequestId doesn't exist";
-            res.status(400).end();
-        }
+                } else {
+                    res.statusMessage = "RequestId doesn't exist";
+                    res.status(400).end();
+                }
+            })
     }
 
     static getAllMessages(req, res) {
-        try {
-            MessageDao.getAllMessages()
-                .then((msgs) => {
+        MessageDao.getAllMessages()
+            .then((msgs) => {
+                if (msgs) {
                     res.json(msgs)
-                })
-
-        } catch (error) {
-            console.log(error, 'error')
-        }
+                } else {
+                    res.status(400).end();
+                    res.statusMessage = "No messages found";
+                    console.log(error, 'error')
+                }
+            })
     }
 
     static getChannelMessages(req, res) {
-        try {
-            MessageDao.getChannelMessages(req.params.channel)
-                .then((msgs) => {
+        MessageDao.getChannelMessages(req.params.channel)
+            .then((msgs) => {
+                if (msgs) {
                     res.json(msgs)
-                })
-
-        } catch (error) {
-            console.log(error, 'error')
-        }
+                }
+                else {
+                    res.status(400).end();
+                    res.statusMessage = "No messages found";
+                    console.log(error, 'error')
+                }
+            })
     }
 
     static getMessagesByDate(req, res) {
-        try {
-            if (req.body.from && req.body.to) {
-                MessageDao.getMessagesByDate(req.body.from, req.body.to)
-                    .then((msgs) => {
+        if (req.body.from && req.body.to) {
+            MessageDao.getMessagesByDate(req.body.from, req.body.to)
+                .then((msgs) => {
+                    if (msgs) {
                         res.send(msgs)
-                    })
-            } else {
-                MessageDao.getAllMessages()
-                    .then((msgs) => {
+                    }
+                    else {
+                        res.status(400).end();
+                        res.statusMessage = "No messages found";
+                        console.log(error, 'error')
+                    }
+                })
+        } else {
+            MessageDao.getAllMessages()
+                .then((msgs) => {
+                    if (msgs) {
                         res.json(msgs)
-                    })
-            }
-        } catch (error) {
-            console.log(error, 'error')
+                    }
+                    else {
+                        res.status(400).end();
+                        res.statusMessage = "No messages found";
+                        console.log(error, 'error')
+                    }
+                })
         }
     }
 
