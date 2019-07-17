@@ -40,6 +40,8 @@ class MainContainer extends React.Component {
                 <div className="col-10">
                   <Switch>
                     <Route path="/general" component={GeneralContainer} />
+                    <Route path="/channel/:channel" component={ChannelContainer} />
+                    <Route path="/origin/:origin" component={OriginContainer} />
                     <Redirect from="/" to="/general" />
                   </Switch>
                 </div>
