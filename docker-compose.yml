@@ -6,6 +6,7 @@ services:
     image: ovloop-api
     volumes:
       - ./back/src:/app/src
+      - ./back/passport:/app/passport
     container_name: ovloop-api_dev
     ports:
       - 8080:8080
@@ -40,3 +41,27 @@ services:
 networks:
   default:
     name: ovloop-app
+
+
+    #     # front/docker-compose.yml
+# version: '2'
+# services:
+#   front:
+#     ...
+#     networks:
+#       - some-net
+# networks:
+#   some-net:
+#     driver: bridge
+
+
+# # api/docker-compose.yml
+# version: '2'
+# services:
+#   api:
+#     ...
+#     networks:
+#       - front_some-net
+# networks:
+#   front_some-net:
+#     external: true

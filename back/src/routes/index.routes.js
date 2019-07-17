@@ -7,6 +7,7 @@ const version = 'v1'
 
 router.use(`/${version}/sms`, require('./sms'));
 router.use('/stats', require('./stats'));
+router.use('/users',require('./users'))
 
 
 module.exports = router;

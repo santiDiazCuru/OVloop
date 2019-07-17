@@ -105,4 +105,19 @@ body {
     border-color: transparent;
     box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
   }
+
+  .loader {
+    margin: auto;
+    border: 40px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 40px solid #3498db;
+    width: 200px;
+    height: 200px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
   
