@@ -7,6 +7,8 @@ import GeneralContainer from "../GeneralContainer";
 import LoginContainer from "../LoginContainer";
 import { validateSession } from "../../redux/actions/userActions"
 
+import ChannelContainer from "../ChannelContainer";
+import OriginContainer from "../OriginContainer";
 
 class MainContainer extends React.Component {
   constructor(props) {

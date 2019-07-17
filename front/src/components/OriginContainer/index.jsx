@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import ChartContainer from "../ChartContainer";
-import { fetchMessagesByChannel } from "../../redux/actions/messageActions";
+import { fetchMessagesByOrigin } from "../../redux/actions/messageActions";
 import Template from "../Template";
 class GeneralContainer extends React.Component {
   constructor() {
@@ -12,7 +12,7 @@ class GeneralContainer extends React.Component {
   render() {
     return (
       <div>
-        <Template title={"Channel stats"} />
+        <Template title={"Origin stats"} />
         <div>
           <ChartContainer />
         </div>
@@ -21,7 +21,7 @@ class GeneralContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchMessagesByChannel(this.props.match.params.channel);
+    this.props.fetchMessagesByOrigin(this.props.match.params.origin);
   }
 }
 
@@ -32,7 +32,7 @@ const mapStateToProps = function(state) {
 };
 const mapDispatchToProps = function(dispatch) {
   return {
-    fetchMessagesByChannel: channel => dispatch(fetchMessagesByChannel(channel))
+    fetchMessagesByOrigin: origin => dispatch(fetchMessagesByOrigin(origin))
   };
 };
 export default connect(
