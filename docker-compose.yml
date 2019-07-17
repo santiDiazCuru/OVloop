@@ -1,6 +1,6 @@
 version: "3.7"
 services:
-  server-local:
+  server:
     build:
       context: .
     image: ovloop-api
@@ -15,6 +15,7 @@ services:
     depends_on:
       - localstack
       - mongo
+      - front
     environment:
       NODE_ENV: local
       REGION_SNS: us-east-2
@@ -22,6 +23,15 @@ services:
       AWS_SECRET_ACCESS_KEY: anysecret
     tty: true
     entrypoint: ["npm", "run", "local"]
+  front:
+    image: ovloop-front
+    container_name: ovloop-front_container
+    ports:
+      - "7777:7777"
+    environment: 
+      NODE_ENV: local
+      API_HOST: server
+      API_PORT: 8080
   localstack:
     image: localstack/localstack
     container_name: ovloop-api_localstack
