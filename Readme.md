@@ -8,7 +8,7 @@ This application is dockerized so ideally you only need `docker` and `docker-com
 To start the server (api) locally, just run:
 
 ```bash
-docker-compose up server-local
+docker-compose up server
 ```
 
 To run the unit tests (not yet setup), just run:
