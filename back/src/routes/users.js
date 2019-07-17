@@ -15,11 +15,13 @@ const passport = require('../../passport/config')
 
 //PASSPORT 
 router.post('/login', passport.authenticate('local'), (req, res) => {
+    console.log('soy el user que se loggead perrooo', req.user)
     res.send(req.user)
 })
 
 router.get("/session", function (req, res) {
-   req.user ? res.send(true) : res.send(false)
+    console.log('hola soy req.user', req.user)
+   req.user ? res.json(true) : res.json(false)
 });
 
 router.get("/logout", function (req, res) {
