@@ -20,19 +20,6 @@ mongoose.connect("mongodb://mongo:27017/ovloop")
     .then(() => console.log('mongoDB connected to ovloop'))
     .catch(err => console.log('db error: ', err));
 
-//PASSPORT & SESSION
-const session = require("express-session");
-
-// Requiring passport as we've configured it
-const passport = require("./passport/config");
-
-// SESSION
-app.use(session({ secret: "ovloop" }));
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(cookieParser());
-
 // CONNECT TO DB (para localhost)
 // mongoose.connect("mongodb://localhost/ovloop")
 //     .then(() => console.log('mongoDB connected to ovloop'))
