@@ -7,7 +7,7 @@ services:
     volumes:
       - ./back/src:/app/src
       - ./back/passport:/app/passport
-    container_name: ovloop-api_dev
+    container_name: ovloop-api-dev
     ports:
       - 8080:8080
       - 2345:2345

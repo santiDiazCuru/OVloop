@@ -88,7 +88,6 @@ class MessagesController {
         }
         MessageDao.getMessages(query)
             .then((msgs) => {
-                console.log('soy los mensajesss')
                 res.json(msgs)
             })
     }
