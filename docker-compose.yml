@@ -6,7 +6,7 @@ services:
     image: ovloop-api
     volumes:
       - ./back/src:/app/src
-    container_name: ovloop-api_dev
+    container_name: ovloop-api-dev
     ports:
       - 8080:8080
       - 2345:2345
@@ -27,6 +27,8 @@ services:
     container_name: ovloop-front_container
     ports:
       - "7777:7777"
+    depends_on:
+      - mongo
     environment: 
       NODE_ENV: local
       API_HOST: server
