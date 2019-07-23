@@ -33,11 +33,21 @@ services:
       NODE_ENV: local
       API_HOST: server
       API_PORT: 8080
+  test:
+    build:
+      context: .
+    image: api-dynamodb
+    volumes:
+      - ./src:/app/src
+      - ./coverage/unit:/app/coverage
+    container_name: api-dynamodb_test
+    environment: *common-variables
+    tty: true
+    entrypoint: ["npm", "test"]    
   localstack:
     image: localstack/localstack
     container_name: ovloop-api_localstack
     environment:
-      # LOCALSTACK_HOSTNAME: localstack
       SERVICES: "sns,sqs"
       DEFAULT_REGION: us-east-2
     ports:
@@ -53,26 +63,3 @@ networks:
   default:
     name: ovloop-app
 
-
-    #     # front/docker-compose.yml
-# version: '2'
-# services:
-#   front:
-#     ...
-#     networks:
-#       - some-net
-# networks:
-#   some-net:
-#     driver: bridge
-
-
-# # api/docker-compose.yml
-# version: '2'
-# services:
-#   api:
-#     ...
-#     networks:
-#       - front_some-net
-# networks:
-#   front_some-net:
-#     external: true
