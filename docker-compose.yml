@@ -28,7 +28,7 @@ services:
       - "7777:7777"
     depends_on:
       - mongo
-    environment: 
+    environment:
       NODE_ENV: local
       API_HOST: server
       API_PORT: 8080
@@ -48,11 +48,23 @@ services:
     image: mongo
     ports:
       - "27017:27017"
+  test:
+    build:
+      context: .
+    image: ovloop-api
+    volumes:
+      - ./src:/app/src
+      - ./coverage/unit:/app/coverage/unit
+    container_name: ovloop-api_test
+    #environment: *common-variables
+    tty: true
+    entrypoint: ["npm", "test"]
 networks:
   default:
     name: ovloop-app
 
 
+    
     #     # front/docker-compose.yml
 # version: '2'
 # services:
@@ -63,7 +75,6 @@ networks:
 # networks:
 #   some-net:
 #     driver: bridge
-
 
 # # api/docker-compose.yml
 # version: '2'
