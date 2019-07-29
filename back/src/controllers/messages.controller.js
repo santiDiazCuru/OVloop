@@ -2,6 +2,7 @@ const MessageDao = require('../daos/messages.dao');
 
 var AWS = require('aws-sdk');
 AWS.config.update({ region: 'us-east-2' });
+AWS.config.sns = {region: 'us-east-1'};
 const xid = require('xid-js');
 
 const generateUuid = () => {
@@ -119,7 +120,14 @@ class MessagesController {
                     PhoneNumber: phoneNumber
                 };
                 // Create promise and SNS service object
-                var publishTextPromise = new AWS.SNS({ endpoint: `http://localstack:4575` }).publish(params).promise();
+
+                const config = {apiVersion: '2010-03-31'};
+
+                if (process.env.NODE_ENV === 'local') {
+                    config.endpoint = `http://localstack:4575`;
+                }
+
+                var publishTextPromise = new AWS.SNS(config).publish(params).promise();
                 // { endpoint: `${process.env.LOCALSTACK_HOSTNAME}:4575` }
                 // Handle promise's fulfilled/rejected states
                 publishTextPromise.then((data) => {

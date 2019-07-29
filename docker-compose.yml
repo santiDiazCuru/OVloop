@@ -17,8 +17,8 @@ services:
     environment:
       NODE_ENV: local
       REGION_SNS: us-east-2
-      AWS_ACCESS_KEY_ID: anykey
-      AWS_SECRET_ACCESS_KEY: anysecret
+      AWS_ACCESS_KEY_ID: AKIAQAXKIITBQ4YAXFOM
+      AWS_SECRET_ACCESS_KEY: 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
     tty: true
     entrypoint: ["npm", "run", "local"]
   front:
