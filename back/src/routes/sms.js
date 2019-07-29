@@ -2,7 +2,7 @@
 const faker = require('faker')
 const express = require('express');
 const router = express.Router();
-const Message = require('../models/message');
+const Message = require('../dbmodels/message');
 
 const messagesController = require('../controllers/messages.controller')
 
@@ -29,6 +29,6 @@ router.post('/seed', function (req, res) {
 })
 
 router.post('/', messagesController.insert)
-router.get('/:requestId', messagesController.getMessagesSent)
+router.get('/:requestId', messagesController.getSingleMessage)
 
 module.exports = router;
