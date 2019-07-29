@@ -2,7 +2,7 @@ const MessageDao = require('../daos/messages.dao');
 const MessagesModel = require('../models/messages.models');
 var AWS = require('aws-sdk');
 AWS.config.update({ region: 'us-east-2' });
-AWS.config.sns = {region: 'us-east-1'};
+AWS.config.sns = { region: 'us-east-1' };
 
 const xid = require('xid-js');
 const generateUuid = () => {
@@ -30,8 +30,8 @@ class MessagesController {
     static async getMessages(req, res) {
         if (!req.body) res.status(400)
         else {
-            const { channel, to, from, status, origin } = req.body
-            const result = await MessagesModel.getMessages(channel, origin, status, to, from)
+            const { channel, origin, to, from, filter, Status } = req.body
+            const result = await MessagesModel.getMessages(channel, origin, Status, to, from, filter)
             res.status(200).send(result)
         }
     }
@@ -60,7 +60,7 @@ class MessagesController {
                 };
                 // Create promise and SNS service object
 
-                const config = {apiVersion: '2010-03-31'};
+                const config = { apiVersion: '2010-03-31' };
 
                 if (process.env.NODE_ENV === 'local') {
                     config.endpoint = `http://localstack:4575`;

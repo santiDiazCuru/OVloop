@@ -13,10 +13,35 @@ class MessagesModel {
         return MessageDao.getSingleMessage(requestId)
     }
 
-    static getMessages(channel, origin, status, to, from) {
+    static getMessages(channel, origin, to, from, filter) {
         let query = {}
+        if (filter) {
+            if (filter.type === 'channel') {
+                channel = filter.name
+                if (filter.origin) {
+                    origin = filter.origin
+                }
+            }
+            if (filter.type === 'origin') {
+                origin = filter.name
+                if (filter.channel) {
+                    channel = filter.channel
+                }
+            }
+        }
+
         if (to && from) {
-            if (channel) {
+            if (channel && origin) {
+                query = {
+                    date: {
+                        $gte: from,
+                        $lt: to
+                    },
+                    channel: channel,
+                    origin: origin
+                }
+            }
+            else if (channel) {
                 query = {
                     date: {
                         $gte: from,
@@ -24,16 +49,7 @@ class MessagesModel {
                     },
                     channel: channel
                 }
-            } else if (status) {
-                query = {
-                    date: {
-                        $gte: from,
-                        $lt: to
-                    },
-                    status: status
-                }
             }
-
             else if (origin) {
                 query = {
                     date: {
@@ -52,13 +68,15 @@ class MessagesModel {
                 }
             }
         } else {
-            if (channel) {
+            if (channel && origin) {
+                query = {
+                    channel: channel,
+                    origin: origin
+                }
+            }
+            else if (channel) {
                 query = {
                     channel: channel
-                }
-            } else if (status) {
-                query = {
-                    status: status
                 }
             }
             else if (origin) {
