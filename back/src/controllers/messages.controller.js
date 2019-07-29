@@ -1,106 +1,46 @@
 const MessageDao = require('../daos/messages.dao');
-
+const MessagesModel = require('../models/messages.models');
 var AWS = require('aws-sdk');
 AWS.config.update({ region: 'us-east-2' });
 AWS.config.sns = {region: 'us-east-1'};
-const xid = require('xid-js');
 
+const xid = require('xid-js');
 const generateUuid = () => {
     // generate an uuid
     return xid.next();
 };
 
 class MessagesController {
-    static getMessagesSent(req, res) {
-        try {
-            MessageDao.getMessagesSent(req.params.requestId)
-                .then((msg) => {
-                    // console.log(msg)
-                    // SI ENCUENTRA EL MENSAJE
-                    res.statusMessage = "Ok";
-                    res.status(200)
-                    res.json(msg)
-                })
+    static async getSingleMessage(req, res) {
+        const result = await MessagesModel.getSingleMessage(req.params.requestId)
+        if (result == null) res.status(400)
+        else res.status(200).send(result)
+    }
 
-        } catch (error) {
-            res.statusMessage = "Request Id doesn't exist";
-            res.status(400).end();
+    static async getChannelsList(req, res) {
+        const result = await MessagesModel.getChannelsList()
+        res.status(200).send(result)
+    }
+
+    static async getOriginsList(req, res) {
+        const result = await MessagesModel.getOriginsList()
+        res.status(200).send(result)
+    }
+
+    static async getMessages(req, res) {
+        if (!req.body) res.status(400)
+        else {
+            const { channel, to, from, status, origin } = req.body
+            const result = await MessagesModel.getMessages(channel, origin, status, to, from)
+            res.status(200).send(result)
         }
     }
 
-    static getChannelsList(req, res) {
-        MessageDao.getChannelsList()
-            .then((channels) => res.json(channels))
-    }
-    static getOriginsList(req, res) {
-        MessageDao.getOriginsList()
-            .then((origins) => res.json(origins))
-    }
+    static async insert(req, res) {
+        const { channel, phoneNumber, msg, origin } = req.body;
+        const requestId = req.body.requestId || generateUuid()
 
-    static getMessages(req, res) {
-        var channel = req.body.channel
-        var to = req.body.to
-        var from = req.body.from
-        var origin = req.body.origin
-        var query = {}
-
-        if (to && from) {
-            if (channel) {
-                query = {
-                    date: {
-                        $gte: from,
-                        $lt: to
-                    },
-                    channel: channel
-                }
-            }
-            else if (origin) {
-                query = {
-                    date: {
-                        $gte: from,
-                        $lt: to
-                    },
-                    origin: origin
-                }
-            }
-            else {
-                query = {
-                    date: {
-                        $gte: from,
-                        $lt: to
-                    },
-                }
-            }
-        } else {
-            if (channel) {
-                query = {
-                    channel: channel
-                }
-            }
-            else if (origin) {
-                query = {
-                    origin: origin
-                }
-            }
-            else {
-                query = {
-                }
-            }
-        }
-        MessageDao.getMessages(query)
-            .then((msgs) => {
-                res.json(msgs)
-            })
-    }
-
-    static insert(req, res) {
-        var channel = req.body.channel
-        var phoneNumber = req.body.phoneNumber
-        var msg = req.body.msg
-        var origin = req.body.origin
-        var requestId = req.body.requestId || generateUuid()
-
-        // SI NO RECIBO UNO DE LOS ATRIBUTOS
+        // If an attribute is missing return 400
         if (!phoneNumber || !msg || !origin ||
             typeof phoneNumber !== 'string' ||
             typeof msg !== 'string' ||
@@ -108,12 +48,11 @@ class MessagesController {
             typeof channel !== 'string' ||
             typeof requestId !== 'string'
         ) {
-            res.statusMessage = "Missing attributes";
-            res.status(400).end();
-            return
+            return res.status(400).send('Message info is incomplete');
         }
         else {
             try {
+
                 // Create publish parameters
                 var params = {
                     Message: msg, /* required */
@@ -143,7 +82,6 @@ class MessagesController {
                         origin: origin,
                         date: fecha.toISOString()
                     }
-
                     MessageDao.insert(newMessage)
                         .then((response) => {
                             res.json({
@@ -153,29 +91,11 @@ class MessagesController {
                             })
                         })
                 })
+                await MessagesModel.insert(phoneNumber, msg, origin, channel, requestId)
+                res.status(200).send('Message inserted, request Id: ' + requestId);
             } catch (error) {
-                var fecha = new Date()
-                var newMessage = {
-                    phoneNumber: phoneNumber,
-                    requestId: requestId,
-                    status: 'failed',
-                    channel: 'api',
-                    last_provider: 'sns',
-                    origin: origin,
-                    date: fecha.toISOString()
-                }
-
-                MessageDao.insert(newMessage)
-                    .then((response) => {
-                        res.json({
-                            "st": "error",
-                            "provider": "sns",
-                            "requestId": requestId,
-                        })
-                    })
-                console.error('SOY EL ERROR', error, error.stack);
-                res.statusMessage = "Error on SMS providers";
-                res.status(500).end();
+                console.log('Error in controller | insert', error)
+                res.status(500).send('Internal Server Error');
             }
         }
     }

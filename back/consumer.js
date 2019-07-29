@@ -15,7 +15,7 @@ const receiveParams = {
 async function receive() {
   try {
     const queueData = await sqs.receiveMessage(receiveParams);
-  if (
+    if (
       queueData &&
       queueData.Messages &&
       queueData.Messages.length > 0
