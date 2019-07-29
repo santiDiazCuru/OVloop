@@ -7,27 +7,17 @@ mongoose.set('useNewUrlParser', true);
 
 //Jest boilerplate//
 jest.mock('../models/messages.models');
-const sendMock = jest.fn();
-const statusMock = jest.fn();
-const res = { status: statusMock, send: sendMock };
-statusMock.mockImplementation(() => res);
+let sendMock;
+let statusMock;
+let res;
+beforeEach(() => {
+    sendMock = jest.fn();
+    statusMock = jest.fn();
+    res = { status: statusMock, send: sendMock };
+    statusMock.mockImplementation(() => res);
+})
 
 describe('MessagesControler', () => {
-    let connection;
-    let db;
-    beforeAll(async () => {
-        connection = mongoose.connect("mongodb://localhost/ovloop")
-
-        // .then(() => console.log('mongoDB connected to ovloop'))
-        // .catch(err => console.log('db error: ', err));
-
-        //db = await connection.db(global.__MONGO_DB_NAME__);
-    });
-    afterAll(async () => {
-        await connection.close();
-        await mongoose.close();
-    });
-
     describe('Get messages', () => {
         it('should return 200 with if finds the message-singleMessage', async () => {
             const req = { params: { requestId: 906 } };
@@ -48,40 +38,49 @@ describe('MessagesControler', () => {
             expect(sendMock).toBeCalledWith(expect.objectContaining(mockMessagesResult))
         })
 
-        // it("returns 400 message doesn't exist", async () => {
-        //     const req = { params: { requestId: "-10" } }
-        //     const mockMessagesResult = "null";
+        it("returns 400 message doesn't exist", async () => {
+            const req = { params: { requestId: "-10" } }
+            const mockMessagesResult = "null";
 
-        //     messagesModel.getSingleMessage.mockImplementationOnce(() => mockMessagesResult);
+            //messagesModel.getSingleMessage.mockImplementationOnce(() => mockMessagesResult);
 
-        //     await MessagesController.getSingleMessage(req, res);
-        //     expect(statusMock).toBeCalledWith(10)
-        // })
+            await MessagesController.getSingleMessage(req, res);
+            expect(statusMock).toBeCalledWith(400)
+        })
         it('should return all messages if request has object body', async () => {
             const req = { body: {} };
-
             await MessagesController.getMessages(req, res)
             expect(statusMock).toBeCalledWith(200)
         })
 
         it("should return 400 if request doesn't have body", async () => {
-            const req = { params: {} };
-
+            const req = { notBody: {} };
             await MessagesController.getMessages(req, res)
             expect(statusMock).toBeCalledWith(400)
 
         })
-        // describe('inserting messages', () => {
-        //     it("should return 400 if message is incomplete", async () => {
-        //         const req = { body: {} };
-        //         mockMessagesResult = 'Mesagge info is incomplete'
-        //         //messagesModel.insert.mockImplementationOnce(() => mockMessagesResult);
+        describe('inserting messages', () => {
+            it("should return 400 if message is incomplete", async () => {
+                const req = { body: {} };
+                statusMessage = "Message info is incomplete"
+                await MessagesController.insert(req, res)
+                expect(statusMock).toBeCalledWith(400);
+                expect(sendMock).toBeCalledWith(statusMessage);
+            })
 
-        //         await MessagesController.insert(req, res)
-        //         expect(statusMock).toBeCalledWith(201);
-        //         expect(sendMock).toBeCalledWith(mockMessagesResult);
-
-        //     })
-        // })
+            it("should return 400 if 1 attribute is missing", async () => {
+                const req = {
+                    body: {
+                        phoneNumber: '123123',
+                        channel: 'api',
+                        origin: 'testingProject'
+                    }
+                };
+                statusMessage = "Message info is incomplete";
+                await MessagesController.insert(req, res);
+                expect(statusMock).toBeCalledWith(400);
+                expect(sendMock).toBeCalledWith(statusMessage);
+            })
+        })
     })
 });

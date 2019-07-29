@@ -19,6 +19,7 @@ class MessagesDao {
                 return msgs;
             })
     }
+
     static async getChannelsList() {
         const Channels = await Message.findChannels()
         return Channels;

@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">18.52% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>14/28</span>
+        <span class='fraction'>5/27</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -30,21 +30,21 @@
         <span class='fraction'>0/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">38.46% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>5/13</span>
+        <span class='fraction'>0/13</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">51.85% </span>
+        <span class="strong">19.23% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>14/27</span>
+        <span class='fraction'>5/26</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -118,17 +118,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -141,17 +142,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -181,20 +181,21 @@ const AWS = require('aws-sdk');
 AWS.config.update({ region: 'us-east-2' });
 &nbsp;
 class MessagesDao {
-    static getSingleMessage(requestId) {
-        return Message.findOne({
+<span class="fstat-no" title="function not covered" >    st</span>atic getSingleMessage(requestId) {
+<span class="cstat-no" title="statement not covered" >        return Message.findOne({</span>
             requestId: requestId
         })
-            .then((message) =&gt; {
-                return message;
+            .then(<span class="fstat-no" title="function not covered" >(m</span>essage) =&gt; {
+<span class="cstat-no" title="statement not covered" >                return message;</span>
             })
     }
-    static getMessages(query) {
-        return Message.find(query)
-            .then((msgs) =&gt; {
-                return msgs;
+<span class="fstat-no" title="function not covered" >    st</span>atic getMessages(query) {
+<span class="cstat-no" title="statement not covered" >        return Message.find(query)</span>
+            .then(<span class="fstat-no" title="function not covered" >(m</span>sgs) =&gt; {
+<span class="cstat-no" title="statement not covered" >                return msgs;</span>
             })
     }
+&nbsp;
 <span class="fstat-no" title="function not covered" >    st</span>atic async getChannelsList() {
         const Channels = <span class="cstat-no" title="statement not covered" >await Message.findChannels()</span>
 <span class="cstat-no" title="statement not covered" >        return Channels;</span>
@@ -203,19 +204,18 @@ class MessagesDao {
 <span class="cstat-no" title="statement not covered" >        return OriginList.find({})</span>
             .then(<span class="fstat-no" title="function not covered" >(o</span>rigins) =&gt; { <span class="cstat-no" title="statement not covered" >return origins </span>});
     }
-    static insert(message) {
+<span class="fstat-no" title="function not covered" >    st</span>atic insert(message) {
         // Create publish parameters
-        const params = {
+        const params = <span class="cstat-no" title="statement not covered" >{</span>
             Message: message.msg, /* required */
             PhoneNumber: message.phoneNumber
         };
-        console.log('im params', params)
         // Create promise and SNS service object
-        const publishTextPromise = new AWS.SNS({ endpoint: `http://localstack:4575` }).publish(params).promise()
+        const publishTextPromise = <span class="cstat-no" title="statement not covered" >new AWS.SNS({ endpoint: `http://localstack:4575` }).publish(params).promise()</span>
 &nbsp;
-        try {
+<span class="cstat-no" title="statement not covered" >        try {</span>
             // Handle promise's fulfilled/rejected states
-            publishTextPromise
+<span class="cstat-no" title="statement not covered" >            publishTextPromise</span>
                 .then(<span class="fstat-no" title="function not covered" >(d</span>ata) =&gt; {
 <span class="cstat-no" title="statement not covered" >                    console.log('SNS message Id response:' + data.MessageId)</span>
 <span class="cstat-no" title="statement not covered" >                    return OriginList.findOne({ origin: message.origin })</span>
@@ -244,7 +244,7 @@ module.exports = MessagesDao;</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jul 26 2019 17:22:47 GMT-0300 (Argentina Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jul 29 2019 11:48:53 GMT-0300 (Argentina Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>
