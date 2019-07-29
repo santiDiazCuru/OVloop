@@ -30,8 +30,8 @@ class MessagesController {
     static async getMessages(req, res) {
         if (!req.body) res.status(400)
         else {
-            const { channel, origin, to, from, filter, Status } = req.body
-            const result = await MessagesModel.getMessages(channel, origin, Status, to, from, filter)
+            const { channel, origin, to, from, filter } = req.body
+            const result = await MessagesModel.getMessages(channel, origin, to, from, filter)
             res.status(200).send(result)
         }
     }
