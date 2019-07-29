@@ -22,28 +22,17 @@ services:
       AWS_SECRET_ACCESS_KEY: anysecret
     tty: true
     entrypoint: ["npm", "run", "local"]
-  # front:
-  #   image: ovloop-front
-  #   container_name: ovloop-front_container
-  #   ports:
-  #     - "7777:7777"
-  #   depends_on:
-  #     - mongo
-  #   environment: 
-  #     NODE_ENV: local
-  #     API_HOST: server
-  #     API_PORT: 8080
-  # test:
-  #   build:
-  #     context: .
-  #   image: api-dynamodb
-  #   volumes:
-  #     - ./src:/app/src
-  #     - ./coverage/unit:/app/coverage
-  #   container_name: api-dynamodb_test
-  #   environment: *common-variables
-  #   tty: true
-  #   entrypoint: ["npm", "test"]    
+  front:
+    image: ovloop-front
+    container_name: ovloop-front_container
+    ports:
+      - "7777:7777"
+    depends_on:
+      - mongo
+    environment:
+      NODE_ENV: local
+      API_HOST: server
+      API_PORT: 8080
   localstack:
     image: localstack/localstack
     container_name: ovloop-api_localstack
@@ -59,7 +48,44 @@ services:
     image: mongo
     ports:
       - "27017:27017"
+  test:
+    build:
+      context: .
+    image: ovloop-api
+    volumes:
+      - ./src:/app/src
+      - ./coverage/unit:/app/coverage/unit
+    container_name: ovloop-api_test
+    #environment: *common-variables
+    tty: true
+    entrypoint: ["npm", "test"]
 networks:
   default:
     name: ovloop-app
 
+<<<<<<< HEAD
+=======
+
+    
+    #     # front/docker-compose.yml
+# version: '2'
+# services:
+#   front:
+#     ...
+#     networks:
+#       - some-net
+# networks:
+#   some-net:
+#     driver: bridge
+
+# # api/docker-compose.yml
+# version: '2'
+# services:
+#   api:
+#     ...
+#     networks:
+#       - front_some-net
+# networks:
+#   front_some-net:
+#     external: true
+>>>>>>> 7c43b6510eff7b49c440c0d62e476e615ffd4158

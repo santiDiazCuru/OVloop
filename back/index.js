@@ -15,12 +15,12 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useCreateIndex', true);
 // mongoose.set('useFindAndModify', false);
 
-// CONNECT TO DB (con docker!!!!)
+// // CONNECT TO DB (con docker!!!!)
 mongoose.connect("mongodb://mongo:27017/ovloop")
     .then(() => console.log('mongoDB connected to ovloop'))
     .catch(err => console.log('db error: ', err));
 
-// CONNECT TO DB (para localhost)
+//CONNECT TO DB (para localhost)
 // mongoose.connect("mongodb://localhost/ovloop")
 //     .then(() => console.log('mongoDB connected to ovloop'))
 //     .catch(err => console.log('db error: ', err));
