@@ -40,8 +40,19 @@ class MessagesController {
         var channel = req.body.channel
         var to = req.body.to
         var from = req.body.from
-        var origin = req.body.origin
+        var origin = req.body.origin    
         var query = {}
+         
+        console.log('soy el req.body.filter', req.body.filter)
+        if (req.body.filter) {
+            if (req.body.filter.type === 'channel') {
+                channel = req.body.filter.name
+            }
+            if (req.body.filter.type === 'origin') {
+                origin = req.body.filter.name
+            }
+        }
+        console.log('soy el channel y el origin despues de armar el objeto query', channel, origin)
 
         if (to && from) {
             if (channel) {
